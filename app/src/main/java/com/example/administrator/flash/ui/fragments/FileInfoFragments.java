@@ -139,7 +139,7 @@ public class FileInfoFragments extends Fragment {
     }
 
     /*更新FileInfoAdapter*/
-    private void updateFileInfoAdapter() {
+    public void updateFileInfoAdapter() {
         if (mFileInfoAdapter != null) {
             mFileInfoAdapter.notifyDataSetChanged();
         }

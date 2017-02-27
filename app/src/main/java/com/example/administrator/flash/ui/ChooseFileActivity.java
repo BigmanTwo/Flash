@@ -1,5 +1,6 @@
 package com.example.administrator.flash.ui;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,8 +18,10 @@ import com.example.administrator.flash.Constant;
 import com.example.administrator.flash.R;
 import com.example.administrator.flash.common.BaseActivity;
 import com.example.administrator.flash.core.entity.FileInfo;
+import com.example.administrator.flash.core.receiver.SelectedFileListChangedBroadcastReceiver;
 import com.example.administrator.flash.ui.adapter.ResPageAdapter;
 import com.example.administrator.flash.ui.fragments.FileInfoFragments;
+import com.example.administrator.flash.ui.view.ShowSelectedFileInfoDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +58,9 @@ public class ChooseFileActivity extends BaseActivity {
     FileInfoFragments mMp4InfoFragment;
     List<FileInfoFragments> listFragments;
     private boolean isWebTransfer=false;
+
+    ShowSelectedFileInfoDialog mShowSelectedFileInfoDialog;
+    SelectedFileListChangedBroadcastReceiver  mSelectedFileListChangedBroadcastReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +112,25 @@ public class ChooseFileActivity extends BaseActivity {
         tab_Layout.setTabMode(TabLayout.MODE_FIXED);
         tab_Layout.setupWithViewPager(view_Pager);
         setSelectedViewStyle(false);
+        mShowSelectedFileInfoDialog=new ShowSelectedFileInfoDialog(getContext());
+        mSelectedFileListChangedBroadcastReceiver=new SelectedFileListChangedBroadcastReceiver() {
+            @Override
+            public void onSelectedFileChanged() {
+                updata();
+            }
+        };
+        IntentFilter intentFilter=new IntentFilter();
+        intentFilter.addAction(SelectedFileListChangedBroadcastReceiver.ACTION_CHOOSE_FILE_CHANGED);
+        registerReceiver(mSelectedFileListChangedBroadcastReceiver,intentFilter);
+    }
+    private void updata(){
+        if(mApkInfoFragment != null) mApkInfoFragment.updateFileInfoAdapter();
+        if(mJpgInfoFragment != null) mJpgInfoFragment.updateFileInfoAdapter();
+        if(mMp3InfoFragment != null) mMp3InfoFragment.updateFileInfoAdapter();
+        if(mMp4InfoFragment != null) mMp4InfoFragment.updateFileInfoAdapter();
 
+        //更新已选中Button
+        getSelectedView();
     }
 
     /**
