@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:actionBarSize"
+    android:background="@color/colorPrimary">
+<TextView
+    android:layout_width="@dimen/dp_36"
+    android:layout_height="@dimen/dp_36"
+    android:layout_margin="@dimen/dp_4"
+    android:padding="@dimen/dp_4"
+    android:background="@drawable/ic_keyboard_arrow_left_24dp"
+    android:layout_centerVertical="true"
+    android:id="@+id/tv_back"/>
+    <ImageView
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:layout_margin="@dimen/dp_4"
+        android:padding="@dimen/dp_4"
+        android:src="@drawable/ic_search_black_24dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/iv_search"/>
+    <android.support.v7.widget.SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_back"
+        android:layout_toLeftOf="@id/iv_search"
+        android:layout_centerVertical="true"
+        android:queryHint="@string/tip_search"
+        android:id="@+id/search_view"
+        />
+    <TextView
+        android:id="@+id/tv_titlea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_toRightOf="@id/tv_back"
+        android:layout_toLeftOf="@id/iv_search"
+        android:layout_centerVertical="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="@string/str_title"
+        android:textStyle="bold"/>
+</RelativeLayout>
